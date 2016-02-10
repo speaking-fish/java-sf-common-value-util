@@ -65,7 +65,7 @@ public class Values {
     }
     
     public static <RESULT> Getter<RESULT> threadLocalCloseableSingleton(final Creator<RESULT, Void> creator) {
-        return threadLocalCloseableSingleton(creator, null);
+        return Values.threadLocalCloseableSingleton(creator, (Void) null); // Void for java 1.5 compatibility
     }
     
     public static <RESULT> SimpleCloseableSingleton<RESULT> simpleCloseableSingleton(final Creator<RESULT, Void> creator) {
