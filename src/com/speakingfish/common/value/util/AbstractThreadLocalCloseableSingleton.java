@@ -32,7 +32,7 @@ public abstract class AbstractThreadLocalCloseableSingleton<T> implements Simple
         }
     }
 
-    @Override public void close() {
+    public void close() {
         SimpleCloseableSingleton<T> singleton = _singleton.get();
         if(null != singleton) {
             singleton.close();

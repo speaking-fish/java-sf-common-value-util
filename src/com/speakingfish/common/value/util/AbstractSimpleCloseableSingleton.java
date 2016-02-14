@@ -10,7 +10,7 @@ public abstract class AbstractSimpleCloseableSingleton<T> extends AbstractSimple
         }
     }
     
-    @Override public void close() {
+    public void close() {
         if(_retrieved) {
             _retrieved = false;
             T temp = _value;
