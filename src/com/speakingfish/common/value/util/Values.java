@@ -18,7 +18,7 @@ public class Values {
     
     public static <T> Getter<T> rethrowableGetter(final ThrowableGetter<T> origin) {
         return new Getter<T>() {
-            @Override public T get() {
+            public T get() {
                 return getOrRethrow(origin);
             }
         };
