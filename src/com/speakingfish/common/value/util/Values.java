@@ -24,6 +24,26 @@ public class Values {
         };
     }
     
+    public static <RESULT, PARAMS> Getter<RESULT> simpleSingleton(final Mapper<RESULT, PARAMS> creator, final PARAMS params) {
+        return new AbstractSimpleSingleton<RESULT>() {
+            @Override protected RESULT create() {
+                return creator.apply(params);
+            }
+        };
+    }
+
+    public static <RESULT, PARAMS> SimpleCloseableSingleton<RESULT> simpleCloseableSingleton(final Mapper<RESULT, PARAMS> creator, final PARAMS params) {
+        return new AbstractSimpleCloseableSingleton<RESULT>() {
+            @Override protected RESULT create() {
+                return creator.apply(params);
+            }
+        };
+    }
+    
+    public static <RESULT> SimpleCloseableSingleton<RESULT> simpleCloseableSingleton(final Mapper<RESULT, Void> creator) {
+        return simpleCloseableSingleton(creator, null);
+    }
+
     public static <RESULT, PARAMS> Getter<RESULT> threadLocalCloseableSingleton(final Mapper<RESULT, PARAMS> creator, final PARAMS params) {
         return new AbstractThreadLocalCloseableSingleton<RESULT>() {
             @Override protected RESULT create() {
@@ -40,20 +60,8 @@ public class Values {
         };
     }
     
-    public static <RESULT, PARAMS> Getter<RESULT> simpleSingleton(final Mapper<RESULT, PARAMS> creator, final PARAMS params) {
-        return new AbstractSimpleSingleton<RESULT>() {
-            @Override protected RESULT create() {
-                return creator.apply(params);
-            }
-        };
-    }
-    
-    public static <RESULT, PARAMS> SimpleCloseableSingleton<RESULT> simpleCloseableSingleton(final Mapper<RESULT, PARAMS> creator, final PARAMS params) {
-        return new AbstractSimpleCloseableSingleton<RESULT>() {
-            @Override protected RESULT create() {
-                return creator.apply(params);
-            }
-        };
+    public static <RESULT> Getter<RESULT> threadLocalCloseableSingleton(final Mapper<RESULT, Void> creator) {
+        return Values.threadLocalCloseableSingleton(creator, (Void) null); // Void for java 1.5 compatibility
     }
     
     public static <RESULT, PARAMS> SimpleCloseableSingleton<RESULT> lazySimpleCloseableSingleton(final Mapper<RESULT, PARAMS> creator, final Getter<PARAMS> paramsGetter) {
@@ -72,14 +80,6 @@ public class Values {
         };
     }
     
-    public static <RESULT> Getter<RESULT> threadLocalCloseableSingleton(final Mapper<RESULT, Void> creator) {
-        return threadLocalCloseableSingleton(creator, null);
-    }
-    
-    public static <RESULT> SimpleCloseableSingleton<RESULT> simpleCloseableSingleton(final Mapper<RESULT, Void> creator) {
-        return simpleCloseableSingleton(creator, null);
-    }
-
     /*
     public static <DEST, SRC> Invoker<SRC> simpleCloseableSingleton(
         final Mapper<DEST, SRC> mapper,
