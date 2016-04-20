@@ -4,8 +4,8 @@ import com.speakingfish.common.function.Getter;
 
 public abstract class AbstractSimpleSingleton<T> implements Getter<T> {
 
-    boolean _retrieved = false;
-    T       _value     = null ;
+    protected boolean _retrieved = false;
+    protected T       _value     = null ;
 
     protected abstract T create();
 
@@ -16,5 +16,8 @@ public abstract class AbstractSimpleSingleton<T> implements Getter<T> {
         }
         return _value;
     }
+    
+    public boolean retrieved() { return _retrieved; }
+    public T       value    () { return _value    ; }
 
 }
